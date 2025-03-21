@@ -17,7 +17,10 @@ umi.use(signerIdentity(signer));
         // Follow this JSON structure
         // https://docs.metaplex.com/programs/token-metadata/changelog/v1.0#json-structure
 
+        // Define the image URI for the NFT
         const image = "https://gateway.irys.xyz/AAXu91ufBEHNf7cW3foCP28JESR5UheW6JJ2BSjg33yt"
+
+        // Define the metadata structure for the NFT
     //     const metadata = {
     //         name: "PinkRug",
     //         symbol: "PNKRUG",
@@ -43,6 +46,8 @@ umi.use(signerIdentity(signer));
     //     const myUri = await umi.uploader.uploadJson(metadata);
     //     console.log("Your metadata URI: ", myUri);
     // }
+
+    // Define the metadata structure for the NFT
     const metadata = {
         name: "Andre-XD",
         symbol: "ANDREXD",
@@ -62,6 +67,7 @@ umi.use(signerIdentity(signer));
         },
         creators: []
     };
+    // Upload the metadata and retrieve the URI
     const myUri = await umi.uploader.uploadJson(metadata);
     console.log("Your metadata URI: ", myUri);
 }

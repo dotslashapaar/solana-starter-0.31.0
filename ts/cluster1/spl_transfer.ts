@@ -25,6 +25,8 @@ const to = new PublicKey("BBWpMG3mXtGVMNVzGJSAVjkKqVixMXepWELv3fBL1RtU"); //Ayma
         // Transfer the new token to the "toTokenAccount" we just created
         const decimals = 6; 
         const amount = 5000000 * 10 ** decimals;
+
+        // Transfer the tokens to the recipient's associated token account
         const tx = await transfer(connection, keypair, fromAta.address, toAta.address, keypair.publicKey, amount);
         console.log(`Transfer successful! Transaction ID: ${tx}`);
     } catch(e) {

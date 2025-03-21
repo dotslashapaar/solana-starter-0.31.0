@@ -12,7 +12,7 @@ import { bs58 } from "@coral-xyz/anchor/dist/cjs/utils/bytes";
 // Define our Mint address
 const mint = publicKey("5nSvBShsKXaS6oJKjGasW3znihEnmJYc6tDfhoBYMYs6")
 
-// Create a UMI connection
+// Create a UMI connection to the Solana devnet
 const umi = createUmi('https://api.devnet.solana.com');
 const keypair = umi.eddsa.createKeypairFromSecretKey(new Uint8Array(wallet));
 const signer = createSignerFromKeypair(umi, keypair);
@@ -21,11 +21,13 @@ umi.use(signerIdentity(createSignerFromKeypair(umi, keypair)));
 (async () => {
     try {
         // Start here
+        // Prepare the accounts for creating the metadata account
         let accounts: CreateMetadataAccountV3InstructionAccounts = {
             mint,
             mintAuthority: signer,
         }
 
+        // Define the metadata structure
         let data: DataV2Args = {
             name: "Q2-builders",
             symbol: "Mint",
@@ -36,12 +38,14 @@ umi.use(signerIdentity(createSignerFromKeypair(umi, keypair)));
             uses: null
         }
 
+        // Prepare the arguments for creating the metadata account
         let args: CreateMetadataAccountV3InstructionArgs = {
             data: data,
             isMutable: false,
             collectionDetails: null,
         }
 
+        // Create the metadata account and send the transaction
         let tx = createMetadataAccountV3(
             umi,
             {

@@ -5,17 +5,21 @@ import { createNft, mplTokenMetadata } from "@metaplex-foundation/mpl-token-meta
 import wallet from "../wba-wallet.json"
 import base58 from "bs58";
 
+// Define the RPC endpoint for the Solana devnet
 const RPC_ENDPOINT = "https://api.devnet.solana.com";
 const umi = createUmi(RPC_ENDPOINT);
 
+// Create a keypair from the wallet file
 let keypair = umi.eddsa.createKeypairFromSecretKey(new Uint8Array(wallet));
 const myKeypairSigner = createSignerFromKeypair(umi, keypair);
 umi.use(signerIdentity(myKeypairSigner));
 umi.use(mplTokenMetadata())
 
+// Generate a new signer for the minting process
 const mint = generateSigner(umi);
 
 (async () => {
+    // // Create and mint an NFT with specified attributes
     // let tx = await createNft(umi, {
     //     mint,
     //     name: "PinkRuggg",
@@ -24,6 +28,8 @@ const mint = generateSigner(umi);
     //     sellerFeeBasisPoints: percentAmount(0.5),
 
     // })
+
+    // Create and mint an NFT with specified attributes
     let tx = await createNft(umi, {
         mint,
         name: "Andre-XD",
@@ -32,6 +38,8 @@ const mint = generateSigner(umi);
         sellerFeeBasisPoints: percentAmount(0.1),
 
     })
+
+    // Send the transaction and confirm the minting
     let result = await tx.sendAndConfirm(umi);
     const signature = base58.encode(result.signature);
     
